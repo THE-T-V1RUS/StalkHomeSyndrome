@@ -3,44 +3,80 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] AudioMixer audioMixer;
-    [SerializeField] float roomCompression = -40f;
-    GameManager gameManager;
-    bool isInitialized;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private float roomCompression = -60f;
+    [SerializeField] private float maxDoorAngle = 120f;
+
+    [SerializeField] private Transform bedroomDoor;
+    [SerializeField] private Transform bathroomDoor;
+    [SerializeField] private Transform garageDoor;
+
+    private GameManager gameManager;
+    private bool isInitialized;
 
     private void Start()
     {
-        SetCompressorThreshold(roomCompression);
+        SetCompressorThreshold(0f); // Default to no compression
         Initialize();
     }
 
     void Initialize()
     {
         gameManager = GameManager.Instance;
-        if(gameManager == null)
+        if (gameManager == null)
         {
-            Initialize();
+            Invoke(nameof(Initialize), 0.1f); // Retry initialization
             return;
         }
 
         isInitialized = true;
     }
 
-
     private void Update()
     {
-        if (isInitialized)
+        if (!isInitialized) return;
+
+        float compressionValue = 0f;
+
+        switch (gameManager.currentRoom)
         {
-            if(gameManager.currentRoom == CurrentRoom.LivingRoom)
-                SetCompressorThreshold(0f);
-            else
-                SetCompressorThreshold(roomCompression);
+            case CurrentRoom.LivingRoom:
+                compressionValue = 0f;
+                break;
+
+            case CurrentRoom.Bedroom:
+                compressionValue = CalculateCompression(bedroomDoor);
+                break;
+
+            case CurrentRoom.Bathroom:
+                compressionValue = CalculateCompression(bathroomDoor);
+                break;
+
+            case CurrentRoom.Garage:
+                compressionValue = CalculateCompression(garageDoor);
+                break;
         }
+
+        SetCompressorThreshold(compressionValue);
+    }
+
+    float CalculateCompression(Transform doorTransform)
+    {
+        float yAngle = doorTransform.localEulerAngles.y;
+
+        // Normalize to -180..180
+        if (yAngle > 180f)
+            yAngle -= 360f;
+
+        float openAmount = Mathf.Clamp01(Mathf.Abs(yAngle) / maxDoorAngle);
+
+        float t = 1f - openAmount; // 1 when closed, 0 when fully open
+
+        return Mathf.Lerp(0f, roomCompression, t);
     }
 
     public void SetCompressorThreshold(float value)
     {
-        // Example: value in dB, e.g., -20f
         audioMixer.SetFloat("LivingRoom_CompressorThreshold", value);
     }
 }

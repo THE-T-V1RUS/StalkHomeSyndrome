@@ -42,9 +42,11 @@ public class TeletypeText : MonoBehaviour
         textComponent = GetComponent<TextMeshProUGUI>();
     }
 
-    public void StartTeletype(List<string> messageList)
+    public void StartTeletype(List<string> messageList, GameManager.GameMode customGameMode = GameManager.GameMode.None)
     {
         previousGameMode = gameManager.currentGameMode;
+        if (customGameMode != GameManager.GameMode.None)
+            previousGameMode = customGameMode;
         gameManager.ChangeGameMode(GameManager.GameMode.Dialogue);
 
         if (typingCoroutine != null)
@@ -71,8 +73,11 @@ public class TeletypeText : MonoBehaviour
             yield return StartCoroutine(WaitForPlayerInput());
         }
 
-        playerController.Movement.CanMoveAround = true;
-        playerController.Camera.CanLookAround = true;
+        if(previousGameMode == GameManager.GameMode.FPS)
+        {
+            playerController.Movement.CanMoveAround = true;
+            playerController.Camera.CanLookAround = true;
+        }
 
         gameManager.ChangeGameMode(previousGameMode);
 

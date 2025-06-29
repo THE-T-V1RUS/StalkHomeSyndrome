@@ -166,6 +166,18 @@ public class MicrowaveController : MonoBehaviour
         MicrowaveCookAudioSource.Stop();
         isCooking = false;
         microwaveLight.enabled = false;
+        //instantly turn playerController.transform.rotation so its y rotation faces this transform
+        Vector3 direction = transform.position - playerController.transform.position;
+        direction.y = 0f; // Ignore vertical difference
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            Vector3 euler = lookRotation.eulerAngles;
+            playerController.transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
+        }
+
+        playerController.Camera.ForceLook(BurritoWorld.transform.position);
     }
 
     public void RetrieveBurrito()

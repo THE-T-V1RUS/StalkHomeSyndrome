@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.LightTransport.PostProcessing;
 
 public class RoomDetector : MonoBehaviour
 {
@@ -48,9 +46,7 @@ public class RoomDetector : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        if(door.isClosed)
-            gameManager.currentRoom = room;
-        else
-            gameManager.currentRoom = CurrentRoom.LivingRoom;
+        inRoom = true;
+        gameManager.currentRoom = room;
     }
 }

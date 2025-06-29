@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +9,7 @@ public class GameManager : MonoBehaviour
         Interact,
         Dialogue,
         Cutscene,
+        None,
     }
 
     public static GameManager Instance { get; private set; }

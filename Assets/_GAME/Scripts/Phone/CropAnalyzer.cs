@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class CropAnalyzer : MonoBehaviour
@@ -74,6 +76,7 @@ public class CropAnalyzer : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(CropAnalyzer))]
 public class CropAnalyzerEditor : Editor
 {
@@ -88,3 +91,4 @@ public class CropAnalyzerEditor : Editor
         }
     }
 }
+#endif

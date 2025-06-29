@@ -1,3 +1,4 @@
+using Hertzole.GoldPlayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class Edit_Photos : MonoBehaviour
     public EditAction[] editActions;
     public MicrowaveController microwaveController;
     public Cellphone cellphone;
+    public GoldPlayerController playerController;
     
     public enum EditAction
     {
@@ -61,7 +63,7 @@ public class Edit_Photos : MonoBehaviour
             currentEditAction = EditAction.Crop;
             List<string> dialogue = new List<string>();
             dialogue.Add("She needs to be cropped out of this one...");
-            gameManager.dialogueText.StartTeletype(dialogue);
+            gameManager.dialogueText.StartTeletype(dialogue, GameManager.GameMode.Interact);
         }
     }
 
@@ -236,6 +238,7 @@ public class Edit_Photos : MonoBehaviour
             ClosePhotoApp();
             yield return new WaitForSeconds(0.5f);
             cellphone.StopInteraction();
+            playerController.Camera.StopForceLooking();
             List<string> dialogue = new List<string>();
             dialogue.Add("Breakfast is ready...");
             gameManager.dialogueText.StartTeletype(dialogue);
