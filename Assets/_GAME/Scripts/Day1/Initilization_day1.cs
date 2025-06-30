@@ -4,6 +4,9 @@ using UnityEngine;
 public class Initilization_day1 : MonoBehaviour
 {
     public bool playOpeningCutscene;
+    public bool disableCellphone;
+    public bool disableDoorBlocker;
+    public bool startWithCookedBurrito;
 
     //GAMEMANGER
     [SerializeField] GameManager gameManager;
@@ -25,6 +28,7 @@ public class Initilization_day1 : MonoBehaviour
 
     //MICROWAVE
     [SerializeField] MicrowaveController microwave;
+    [SerializeField] GameObject OverlayBurrito, OverlayBurrioSteam;
 
     //GARAGE DOOR
     [SerializeField] GarageDoorBlocker garageDoorBlocker;
@@ -35,7 +39,7 @@ public class Initilization_day1 : MonoBehaviour
     {
         //Opening Cutscene
         openingCutscene.SetActive(playOpeningCutscene);
-        if(!playOpeningCutscene)
+        if (!playOpeningCutscene)
             blinkController.blinkAmount = 0;
         else
             blinkController.blinkAmount = 1;
@@ -70,8 +74,24 @@ public class Initilization_day1 : MonoBehaviour
         //Garage Door Blocker
         garageDoorBlocker.isBlocking = true;
         garageDoorBlocker.rb.isKinematic = true;
+
+        if (disableCellphone)
+            cellphone.gameObject.SetActive(false);
+        
+        if (disableDoorBlocker)
+        {
+            garageDoorBlocker.isBlocking = false;
+            garageDoorBlocker.rb.isKinematic = false;
+        }
+
+        if (startWithCookedBurrito)
+        {
+            OverlayBurrito.SetActive(true);
+            OverlayBurrioSteam.SetActive(true);
+        }
     }
 
+    /*
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -79,4 +99,5 @@ public class Initilization_day1 : MonoBehaviour
             playerController.Camera.ForceLook(microwave.transform.position);
         }
     }
+    */
 }

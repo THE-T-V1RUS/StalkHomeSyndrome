@@ -11,6 +11,9 @@ public class GetOutOfBed : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GameObject GetOutOfBedCamera;
     [SerializeField] GameManager gameManager;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip snd_GetOutOfBed;
+    [SerializeField] TutorialManager tutorialManager;
 
     private void Start()
     {
@@ -77,7 +80,11 @@ public class GetOutOfBed : MonoBehaviour
 
         animator.SetBool("Play", true);
 
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(1f);
+
+        audioSource.PlayOneShot(snd_GetOutOfBed);
+
+        yield return new WaitForSeconds(1.3f);
 
         GetOutOfBedCamera.SetActive(false);
 
@@ -87,6 +94,13 @@ public class GetOutOfBed : MonoBehaviour
         dialogue.Add("What is that noise?");
         dialogue.Add("Sounds like it's coming from downstairs.");
         gameManager.dialogueText.StartTeletype(dialogue, GameManager.GameMode.FPS);
+
+        while(gameManager.currentGameMode != GameManager.GameMode.FPS)
+        {
+            yield return null;
+        }
+
+        tutorialManager.UpdateTeachingMode(TutorialManager.TeachStep.MoveAndLook);
     }
 
     public IEnumerator StopBlink()

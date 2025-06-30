@@ -4,11 +4,20 @@ using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
 {
+    public enum CurrentCursor
+    {
+        Normal,
+        Interact,
+        Inspect,
+    }
+
     [SerializeField] Image img_Crosshair;
     [SerializeField] Sprite spr_NormalCrosshair, srp_InteractCrosshair, spr_InspectCrosshair;
     [SerializeField] float interactDistance = 3f;
     [SerializeField] LayerMask interactableLayer;
     [SerializeField] GoldPlayerController playerController;
+
+    public CurrentCursor currentCursor;
 
     private void Start()
     {
@@ -67,6 +76,7 @@ public class InteractionController : MonoBehaviour
         img_Crosshair.sprite = spr_NormalCrosshair;
         img_Crosshair.color = new Color(1f, 1f, 1f, 0.15f);
         img_Crosshair.transform.localScale = Vector3.one * 0.22f;
+        currentCursor = CurrentCursor.Normal;
     }
 
     void SetInteractCrosshair()
@@ -74,5 +84,6 @@ public class InteractionController : MonoBehaviour
         img_Crosshair.sprite = srp_InteractCrosshair;
         img_Crosshair.color = new Color(1f, 1f, 1f, 0.5f);
         img_Crosshair.transform.localScale = Vector3.one * 0.5f;
+        currentCursor = CurrentCursor.Interact;
     }
 }
