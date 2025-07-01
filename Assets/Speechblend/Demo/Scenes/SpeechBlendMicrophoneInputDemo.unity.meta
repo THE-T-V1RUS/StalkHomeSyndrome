@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 574fa252e0aad8b419264d861fab457f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 149023
+  packageName: SpeechBlend LipSync
+  packageVersion: 1.2
+  assetPath: Assets/Speechblend/Demo/Scenes/SpeechBlendMicrophoneInputDemo.unity
+  uploadId: 607244

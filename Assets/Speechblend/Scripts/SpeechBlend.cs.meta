@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5a2b0e8dc0a170a4082c251e6797a597
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 149023
+  packageName: SpeechBlend LipSync
+  packageVersion: 1.2
+  assetPath: Assets/Speechblend/Scripts/SpeechBlend.cs
+  uploadId: 607244

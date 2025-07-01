@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 44584bc1798e32d4488001f95757489f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 149023
+  packageName: SpeechBlend LipSync
+  packageVersion: 1.2
+  assetPath: Assets/Speechblend/Scripts/SelectFaceBlendshapes.cs
+  uploadId: 607244
