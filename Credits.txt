@@ -56,5 +56,9 @@ https://sketchfab.com/3d-models/ikea-desk-lamp-4809e04a904044adb4e690980f155d9e
 Blood splatter decal package - NorSat Entertainment
 https://assetstore.unity.com/packages/2d/textures-materials/blood-splatter-decal-package-7518
 
+SpeechBlend LipSync - Tiny Angle Labs
+https://assetstore.unity.com/packages/tools/animation/speechblend-lipsync-149023#reviews
+
+
 
 
