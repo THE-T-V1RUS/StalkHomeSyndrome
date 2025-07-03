@@ -6,23 +6,42 @@ public class CharacterFaceController : MonoBehaviour
 {
     [SerializeField] BonesReference bonesRef;
 
-    [SerializeField] Vector3 upperLidLeft_V3_default, upperLidLeft_V3_blink;
-    [SerializeField] Vector3 lowerLidLeft_V3_default, lowerLidLeft_V3_blink;
-    [SerializeField] Vector3 upperLidRight_V3_default, upperLidRight_V3_blink;
-    [SerializeField] Vector3 lowerLidRight_V3_default, lowerLidRight_V3_blink;
+    [SerializeField] Vector3 upperLidLeft_V3_default, lowerLidLeft_V3_default, upperLidRight_V3_default, lowerLidRight_V3_default;
+    [SerializeField] Vector3 upperLidLeft_V3_blink, lowerLidLeft_V3_blink, upperLidRight_V3_blink, lowerLidRight_V3_blink;
 
-    [SerializeField] Vector3 browInnerLeft_V3_default, browOuterLeft_V3_default, browInnerRight_V3_default, browOuterRight_V3_default;
-    [SerializeField] Vector3 browInnerLeft_V3_angry, browOuterLeft_V3_angry, browInnerRight_V3_angry, browOuterRight_V3_angry;
-    [SerializeField] Vector3 browInnerLeft_V3_fear, browOuterLeft_V3_fear, browInnerRight_V3_fear, browOuterRight_V3_fear;
+    [System.Serializable]
+    public struct FacialExpression
+    {
+        public bool useLids;
+        public bool useLips;
+
+        public Vector3
+            browInnerLeft_V3,
+            browOuterLeft_V3,
+            browInnerRight_V3,
+            browOuterRight_V3,
+            LipLowerLeft_V3,
+            LipLowerRight_V3,
+            LipUpperLeft_V3,
+            LipUpperRight_V3,
+            upperLidLeft_V3,
+            lowerLidLeft_V3,
+            upperLidRight_V3,
+            lowerLidRight_V3
+            ;
+    }
+
+    public FacialExpression expression_default, expression_angry, expression_fear, expression_pain; 
 
     public enum Expression
     {
         Neutral,
         Angry,
         Fear,
+        Pain,
     }
 
-    [SerializeField] Expression currentExpression;
+    public Expression currentExpression;
 
     private void Start()
     {
@@ -30,9 +49,11 @@ public class CharacterFaceController : MonoBehaviour
         ChangeExpression(currentExpression);
     }
 
-    IEnumerator blink()
+    IEnumerator blink(bool startInstantly = false)
     {
-        yield return new WaitForSeconds(Random.Range(3f, 4f));
+        if(!startInstantly)
+            yield return new WaitForSeconds(Random.Range(3f, 4f));
+
         float blinkSpeed = Random.Range(0.1f, 0.4f);
         float halfBlink = blinkSpeed / 2f;
 
@@ -86,67 +107,121 @@ public class CharacterFaceController : MonoBehaviour
 
     public void ChangeExpression(Expression newExpression)
     {
+        StopAllCoroutines();
         currentExpression = newExpression;
+        FacialExpression newFacialExpression = expression_default;
 
-        Vector3 bIL_Target = browInnerLeft_V3_default;
-        Vector3 bOL_Target = browOuterLeft_V3_default;
-        Vector3 bIR_Target = browInnerRight_V3_default;
-        Vector3 bOR_Target = browOuterRight_V3_default;
-
-        if (newExpression == Expression.Angry)
+        switch (newExpression)
         {
-            bIL_Target = browInnerLeft_V3_angry;
-            bOL_Target = browOuterLeft_V3_angry;
-            bIR_Target = browInnerRight_V3_angry;
-            bOR_Target = browOuterRight_V3_angry;
+            default:
+            case Expression.Neutral:
+                newFacialExpression = expression_default;
+                break;
+
+            case Expression.Angry:
+                newFacialExpression = expression_angry;
+                break;
+
+            case Expression.Fear:
+                newFacialExpression = expression_fear;
+                break;
+
+            case Expression.Pain:
+                newFacialExpression = expression_pain;
+                break;
         }
 
-        if (newExpression == Expression.Fear)
-        {
-            bIL_Target = browInnerLeft_V3_fear;
-            bOL_Target = browOuterLeft_V3_fear;
-            bIR_Target = browInnerRight_V3_fear;
-            bOR_Target = browOuterRight_V3_fear;
-        }
+        StartCoroutine(LerpExpression(newFacialExpression,  0.25f));
 
-        StopAllCoroutines(); // Stops any previous animations like blinking (optional)
-        StartCoroutine(LerpBrows(
-            bonesRef.browInnerLeft.localPosition, bIL_Target,
-            bonesRef.browOuterLeft.localPosition, bOL_Target,
-            bonesRef.browInnerRight.localPosition, bIR_Target,
-            bonesRef.browOuterRight.localPosition, bOR_Target,
-            0.25f // duration of brow transition
-        ));
-
-        // You may want to restart blink after expression settles:
-        StartCoroutine(blink());
+        if (!newFacialExpression.useLids)
+            StartCoroutine(blink(true));
     }
 
-    IEnumerator LerpBrows(
-        Vector3 bIL_Start, Vector3 bIL_End,
-        Vector3 bOL_Start, Vector3 bOL_End,
-        Vector3 bIR_Start, Vector3 bIR_End,
-        Vector3 bOR_Start, Vector3 bOR_End,
-        float duration)
+    IEnumerator LerpExpression(FacialExpression expression, float duration)
     {
         float elapsed = 0f;
+
+        //Brow
+        Vector3 brow_IL_Start = bonesRef.browInnerLeft.localPosition;
+        Vector3 brow_OL_Start = bonesRef.browOuterLeft.localPosition;
+        Vector3 brow_IR_Start = bonesRef.browInnerRight.localPosition;
+        Vector3 brow_OR_Start = bonesRef.browOuterRight.localPosition;
+
+        //Lips
+        Vector3 lip_LL_Start = bonesRef.LipLowerLeft.localPosition;
+        Vector3 lip_LR_Start = bonesRef.LipLowerRight.localPosition;
+        Vector3 lip_UL_Start = bonesRef.LipUpperLeft.localPosition;
+        Vector3 lip_UR_Start = bonesRef.LipUpperRight.localPosition;
+
+        //Lids
+        Vector3 lid_UL_Start = bonesRef.upperLidLeft.localPosition;
+        Vector3 lid_LL_Start = bonesRef.lowerLidLeft.localPosition;
+        Vector3 lid_UR_Start = bonesRef.upperLidRight.localPosition;
+        Vector3 lid_LR_Start = bonesRef.lowerLidRight.localPosition;
 
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            bonesRef.browInnerLeft.localPosition = Vector3.Lerp(bIL_Start, bIL_End, t);
-            bonesRef.browOuterLeft.localPosition = Vector3.Lerp(bOL_Start, bOL_End, t);
-            bonesRef.browInnerRight.localPosition = Vector3.Lerp(bIR_Start, bIR_End, t);
-            bonesRef.browOuterRight.localPosition = Vector3.Lerp(bOR_Start, bOR_End, t);
+
+            bonesRef.browInnerLeft.localPosition = Vector3.Lerp(brow_IL_Start, expression.browInnerLeft_V3, t);
+            bonesRef.browOuterLeft.localPosition = Vector3.Lerp(brow_OL_Start, expression.browOuterLeft_V3, t);
+            bonesRef.browInnerRight.localPosition = Vector3.Lerp(brow_IR_Start, expression.browInnerRight_V3, t);
+            bonesRef.browOuterRight.localPosition = Vector3.Lerp(brow_OR_Start, expression.browOuterRight_V3, t);
+
+            if (expression.useLids)
+            {
+                bonesRef.upperLidLeft.localPosition = Vector3.Lerp(lid_UL_Start, expression.upperLidLeft_V3, t);
+                bonesRef.upperLidRight.localPosition = Vector3.Lerp(lid_UR_Start, expression.upperLidRight_V3, t);
+                bonesRef.lowerLidRight.localPosition = Vector3.Lerp(lid_LR_Start, expression.lowerLidRight_V3, t);
+                bonesRef.lowerLidLeft.localPosition = Vector3.Lerp(lid_LL_Start, expression.lowerLidLeft_V3, t);
+            }
+
+            if (expression.useLips)
+            {
+                bonesRef.LipLowerLeft.localPosition = Vector3.Lerp(lip_LL_Start, expression.LipLowerLeft_V3, t);
+                bonesRef.LipUpperLeft.localPosition = Vector3.Lerp(lip_UL_Start, expression.LipUpperLeft_V3, t);
+                bonesRef.LipLowerRight.localPosition = Vector3.Lerp(lip_LR_Start, expression.LipLowerRight_V3, t);
+                bonesRef.LipUpperRight.localPosition = Vector3.Lerp(lip_UR_Start, expression.LipUpperRight_V3, t);
+            }
+            else
+            {
+                bonesRef.LipLowerLeft.localPosition = Vector3.Lerp(lip_LL_Start, expression_default.LipLowerLeft_V3, t);
+                bonesRef.LipUpperLeft.localPosition = Vector3.Lerp(lip_UL_Start, expression_default.LipUpperLeft_V3, t);
+                bonesRef.LipLowerRight.localPosition = Vector3.Lerp(lip_LR_Start, expression_default.LipLowerRight_V3, t);
+                bonesRef.LipUpperRight.localPosition = Vector3.Lerp(lip_UR_Start, expression_default.LipUpperRight_V3, t);
+            }
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        bonesRef.browInnerLeft.localPosition = bIL_End;
-        bonesRef.browOuterLeft.localPosition = bOL_End;
-        bonesRef.browInnerRight.localPosition = bIR_End;
-        bonesRef.browOuterRight.localPosition = bOR_End;
+        bonesRef.browInnerLeft.localPosition = expression.browInnerLeft_V3;
+        bonesRef.browOuterLeft.localPosition = expression.browOuterLeft_V3;
+        bonesRef.browInnerRight.localPosition = expression.browInnerRight_V3;
+        bonesRef.browOuterRight.localPosition = expression.browOuterRight_V3;
+
+        if (expression.useLids)
+        {
+            bonesRef.upperLidLeft.localPosition = expression.upperLidLeft_V3;
+            bonesRef.upperLidRight.localPosition = expression.upperLidRight_V3;
+            bonesRef.lowerLidRight.localPosition = expression.lowerLidRight_V3;
+            bonesRef.lowerLidLeft.localPosition = expression.lowerLidLeft_V3;
+        }
+
+        if (expression.useLips)
+        {
+            bonesRef.LipLowerLeft.localPosition = expression.LipLowerLeft_V3;
+            bonesRef.LipUpperLeft.localPosition = expression.LipUpperLeft_V3;
+            bonesRef.LipLowerRight.localPosition = expression.LipLowerRight_V3;
+            bonesRef.LipUpperRight.localPosition = expression.LipUpperRight_V3;
+        }
+        else
+        {
+            bonesRef.LipLowerLeft.localPosition = expression_default.LipLowerLeft_V3;
+            bonesRef.LipUpperLeft.localPosition = expression_default.LipUpperLeft_V3;
+            bonesRef.LipLowerRight.localPosition = expression_default.LipLowerRight_V3;
+            bonesRef.LipUpperRight.localPosition = expression_default.LipUpperRight_V3;
+        }
     }
 }
 
@@ -176,6 +251,11 @@ public class CharacterFaceControllerEditor : Editor
         if (GUILayout.Button("Set Fear Expression"))
         {
             controller.ChangeExpression(CharacterFaceController.Expression.Fear);
+        }
+
+        if (GUILayout.Button("Set Pain Expression"))
+        {
+            controller.ChangeExpression(CharacterFaceController.Expression.Pain);
         }
     }
 }

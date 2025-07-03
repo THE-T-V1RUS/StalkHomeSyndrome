@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
     public TeletypeText dialogueText;
+    public AudioManager audioManager;
     public TimeManager timeManager;
     public CurrentRoom currentRoom;
     public GameMode currentGameMode = GameMode.FPS;

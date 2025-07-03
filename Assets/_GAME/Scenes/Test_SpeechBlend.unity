@@ -230,6 +230,9 @@ PrefabInstance:
       addedObject: {fileID: 700344260}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83426532642e79943ba772b0c9c98579, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 700344265}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 700344264}
   m_SourcePrefab: {fileID: 100100000, guid: 83426532642e79943ba772b0c9c98579, type: 3}
 --- !u!1 &700344259 stripped
@@ -488,6 +491,16 @@ MonoBehaviour:
       - ER
       - EH
       - AA
+--- !u!4 &700344262 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -50728595093791624, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &700344263 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4704616160622816881, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &700344264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,45 +513,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff08e827eae98b44cbe95bc7bb51b852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperLidLeft: {fileID: 801852773}
-  lowerLidLeft: {fileID: 1321360205}
-  upperLidRight: {fileID: 1378937592}
-  lowerLidRight: {fileID: 999788856}
+  bonesRef: {fileID: 700344265}
   upperLidLeft_V3_default: {x: -0.0622838, y: 0.0319903, z: -0.08425123}
-  upperLidLeft_V3_blink: {x: -0.053, y: 0.0319903, z: -0.0843}
   lowerLidLeft_V3_default: {x: -0.0501438, y: 0.0319903, z: -0.08342123}
-  lowerLidLeft_V3_blink: {x: -0.0529, y: 0.0319903, z: -0.0834}
   upperLidRight_V3_default: {x: -0.0622806, y: -0.03199027, z: -0.08425133}
-  upperLidRight_V3_blink: {x: -0.0521, y: -0.03199027, z: -0.0843}
   lowerLidRight_V3_default: {x: -0.05014437, y: -0.03199027, z: -0.08342103}
+  upperLidLeft_V3_blink: {x: -0.053, y: 0.0319903, z: -0.0843}
+  lowerLidLeft_V3_blink: {x: -0.0529, y: 0.0319903, z: -0.0834}
+  upperLidRight_V3_blink: {x: -0.0521, y: -0.03199027, z: -0.0843}
   lowerLidRight_V3_blink: {x: -0.0536, y: -0.03199027, z: -0.0834}
+  expression_default:
+    useLids: 0
+    useLips: 0
+    browInnerLeft_V3: {x: -0.0819038, y: 0.0239974, z: -0.09295923}
+    browOuterLeft_V3: {x: -0.07761379, y: 0.0541048, z: -0.07842623}
+    browInnerRight_V3: {x: -0.08190279, y: -0.02399739, z: -0.09295947}
+    browOuterRight_V3: {x: -0.07761125, y: -0.05410476, z: -0.07842664}
+    LipLowerLeft_V3: {x: 0.02312508, y: 0.009363189, z: -0.09256919}
+    LipLowerRight_V3: {x: 0.02312683, y: -0.009363193, z: -0.09256937}
+    LipUpperLeft_V3: {x: 0.0125362, y: 0.0066257, z: -0.1058932}
+    LipUpperRight_V3: {x: 0.01253935, y: -0.006625699, z: -0.1058928}
+    upperLidLeft_V3: {x: 0, y: 0, z: 0}
+    lowerLidLeft_V3: {x: 0, y: 0, z: 0}
+    upperLidRight_V3: {x: 0, y: 0, z: 0}
+    lowerLidRight_V3: {x: 0, y: 0, z: 0}
+  expression_angry:
+    useLids: 0
+    useLips: 0
+    browInnerLeft_V3: {x: -0.0699, y: 0.0239974, z: -0.093}
+    browOuterLeft_V3: {x: -0.0742, y: 0.0541048, z: -0.0784}
+    browInnerRight_V3: {x: -0.0699, y: -0.0221, z: -0.093}
+    browOuterRight_V3: {x: -0.0776, y: -0.05410476, z: -0.0784}
+    LipLowerLeft_V3: {x: 0, y: 0, z: 0}
+    LipLowerRight_V3: {x: 0, y: 0, z: 0}
+    LipUpperLeft_V3: {x: 0, y: 0, z: 0}
+    LipUpperRight_V3: {x: 0, y: 0, z: 0}
+    upperLidLeft_V3: {x: 0, y: 0, z: 0}
+    lowerLidLeft_V3: {x: 0, y: 0, z: 0}
+    upperLidRight_V3: {x: 0, y: 0, z: 0}
+    lowerLidRight_V3: {x: 0, y: 0, z: 0}
+  expression_fear:
+    useLids: 0
+    useLips: 0
+    browInnerLeft_V3: {x: -0.0864, y: 0.0239974, z: -0.093}
+    browOuterLeft_V3: {x: -0.0722, y: 0.0541048, z: -0.0784}
+    browInnerRight_V3: {x: -0.086, y: -0.02399739, z: -0.093}
+    browOuterRight_V3: {x: -0.0723, y: -0.05410476, z: -0.0784}
+    LipLowerLeft_V3: {x: 0, y: 0, z: 0}
+    LipLowerRight_V3: {x: 0, y: 0, z: 0}
+    LipUpperLeft_V3: {x: 0, y: 0, z: 0}
+    LipUpperRight_V3: {x: 0, y: 0, z: 0}
+    upperLidLeft_V3: {x: 0, y: 0, z: 0}
+    lowerLidLeft_V3: {x: 0, y: 0, z: 0}
+    upperLidRight_V3: {x: 0, y: 0, z: 0}
+    lowerLidRight_V3: {x: 0, y: 0, z: 0}
+  expression_pain:
+    useLids: 1
+    useLips: 1
+    browInnerLeft_V3: {x: -0.0699, y: 0.0239974, z: -0.093}
+    browOuterLeft_V3: {x: -0.0802, y: 0.0541048, z: -0.0784}
+    browInnerRight_V3: {x: -0.0699, y: -0.0221, z: -0.093}
+    browOuterRight_V3: {x: -0.0836, y: -0.05410476, z: -0.0784}
+    LipLowerLeft_V3: {x: 0.0278, y: 0.009363189, z: -0.0926}
+    LipLowerRight_V3: {x: 0.0266, y: -0.009363193, z: -0.0926}
+    LipUpperLeft_V3: {x: 0.0083, y: 0.0066257, z: -0.1059}
+    LipUpperRight_V3: {x: 0.0083, y: -0.006625699, z: -0.1059}
+    upperLidLeft_V3: {x: -0.0554, y: 0.0319903, z: -0.0843}
+    lowerLidLeft_V3: {x: -0.0547, y: 0.0319903, z: -0.0834}
+    upperLidRight_V3: {x: -0.0556, y: -0.03199027, z: -0.0843}
+    lowerLidRight_V3: {x: -0.0557, y: -0.03199027, z: -0.0834}
+  currentExpression: 1
+--- !u!114 &700344265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700344259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708e4d787264a0b408db7e24fd2881c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upperLidLeft: {fileID: 1890754754}
+  lowerLidLeft: {fileID: 1321360205}
+  upperLidRight: {fileID: 1417933217}
+  lowerLidRight: {fileID: 999788856}
   browInnerLeft: {fileID: 1870039599}
   browOuterLeft: {fileID: 77970312}
   browInnerRight: {fileID: 339605948}
   browOuterRight: {fileID: 1396610585}
-  browInnerLeft_V3_default: {x: -0.0819038, y: 0.0239974, z: -0.09295923}
-  browOuterLeft_V3_default: {x: -0.07761379, y: 0.0541048, z: -0.07842623}
-  browInnerRight_V3_default: {x: -0.08190279, y: -0.02399739, z: -0.09295947}
-  browOuterRight_V3_default: {x: -0.07761125, y: -0.05410476, z: -0.07842664}
-  browInnerLeft_V3_angry: {x: -0.0699, y: 0.0239974, z: -0.093}
-  browOuterLeft_V3_angry: {x: -0.0742, y: 0.0541048, z: -0.0784}
-  browInnerRight_V3_angry: {x: -0.0699, y: -0.0221, z: -0.093}
-  browOuterRight_V3_angry: {x: -0.0776, y: -0.05410476, z: -0.0784}
-  browInnerLeft_V3_fear: {x: -0.0864, y: 0.0239974, z: -0.093}
-  browOuterLeft_V3_fear: {x: -0.0722, y: 0.0541048, z: -0.0784}
-  browInnerRight_V3_fear: {x: -0.086, y: -0.02399739, z: -0.093}
-  browOuterRight_V3_fear: {x: -0.0723, y: -0.05410476, z: -0.0784}
-  isAngry: 0
-  isFear: 0
-  currentExpression: 0
---- !u!4 &801852773 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1007658138615715923, guid: 83426532642e79943ba772b0c9c98579, type: 3}
-  m_PrefabInstance: {fileID: 700344258}
-  m_PrefabAsset: {fileID: 0}
+  LipLowerLeft: {fileID: 1020036527}
+  LipLowerRight: {fileID: 1274101555}
+  LipUpperLeft: {fileID: 700344263}
+  LipUpperRight: {fileID: 700344262}
 --- !u!4 &999788856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3707181508997068776, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1020036527 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8778894861123923128, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1274101555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8784992671613890964, guid: 83426532642e79943ba772b0c9c98579, type: 3}
   m_PrefabInstance: {fileID: 700344258}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1321360205 stripped
@@ -546,14 +627,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8317320608822105863, guid: 83426532642e79943ba772b0c9c98579, type: 3}
   m_PrefabInstance: {fileID: 700344258}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1378937592 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8838926598239770368, guid: 83426532642e79943ba772b0c9c98579, type: 3}
-  m_PrefabInstance: {fileID: 700344258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1396610585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4642887058119369776, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1417933217 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8838926598239770368, guid: 83426532642e79943ba772b0c9c98579, type: 3}
   m_PrefabInstance: {fileID: 700344258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1429799952
@@ -782,6 +863,11 @@ Transform:
 --- !u!4 &1870039599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9207585099802939448, guid: 83426532642e79943ba772b0c9c98579, type: 3}
+  m_PrefabInstance: {fileID: 700344258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1890754754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1007658138615715923, guid: 83426532642e79943ba772b0c9c98579, type: 3}
   m_PrefabInstance: {fileID: 700344258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

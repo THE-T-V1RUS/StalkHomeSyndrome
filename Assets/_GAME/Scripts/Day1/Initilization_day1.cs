@@ -4,9 +4,12 @@ using UnityEngine;
 public class Initilization_day1 : MonoBehaviour
 {
     public bool playOpeningCutscene;
+
+    public bool startAtStart;
     public bool disableCellphone;
     public bool disableDoorBlocker;
     public bool startWithCookedBurrito;
+    public bool disableTitleScreenCutscene;
 
     //GAMEMANGER
     [SerializeField] GameManager gameManager;
@@ -32,6 +35,7 @@ public class Initilization_day1 : MonoBehaviour
 
     //GARAGE DOOR
     [SerializeField] GarageDoorBlocker garageDoorBlocker;
+    [SerializeField] GameObject titleScreenTrigger;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,8 +55,11 @@ public class Initilization_day1 : MonoBehaviour
             gameManager.ChangeGameMode(GameManager.GameMode.FPS);
         playerController.Movement.CanMoveAround = !playOpeningCutscene;
         playerController.Camera.CanLookAround = !playOpeningCutscene;
-        playerController.transform.position = playerStartingPosition;
-        playerController.transform.eulerAngles = playerStartingRotation;
+        if (startAtStart)
+        {
+            playerController.transform.position = playerStartingPosition;
+            playerController.transform.eulerAngles = playerStartingRotation;
+        }
 
         //Set up phone
         cellphone.enabled = true;
@@ -89,6 +96,9 @@ public class Initilization_day1 : MonoBehaviour
             OverlayBurrito.SetActive(true);
             OverlayBurrioSteam.SetActive(true);
         }
+
+        if (disableTitleScreenCutscene)
+            titleScreenTrigger.SetActive(false);
     }
 
     /*

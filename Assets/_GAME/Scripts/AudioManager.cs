@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] AudioSource sfx_AudioSource;
+
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private float roomCompression = -60f;
     [SerializeField] private float maxDoorAngle = 120f;
@@ -30,6 +32,11 @@ public class AudioManager : MonoBehaviour
         }
 
         isInitialized = true;
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        sfx_AudioSource.PlayOneShot(clip);
     }
 
     private void Update()
