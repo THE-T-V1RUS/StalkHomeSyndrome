@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class JawMover : MonoBehaviour
 {
+    public bool isDebugMode = false;
     public Transform jawBone;
 
     [Header("Editor Settings")]
@@ -141,6 +142,8 @@ public class JawMover : MonoBehaviour
 
     void OnGUI()
     {
+        if (!isDebugMode) return;
+
         GUI.skin.label.fontSize = 20;
         GUI.color = Color.cyan;
 
